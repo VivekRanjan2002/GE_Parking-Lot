@@ -73,4 +73,13 @@ public class ParkingLot {
         }
         return 0;
     }
+    // return parkinglot number where car is parked
+    public int retrieveParkingLotNo(String name) {
+        int lotno=0;
+        for(String car: parkingList){
+            lotno++;
+            if(car.equals(name)) return lotno;
+        }
+        return 0;
+    }
 }
