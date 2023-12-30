@@ -115,4 +115,25 @@ public class ParkingLot {
         }
         return -1;
     }
+    // return the parkinglot number where large car is parked or  else 0
+    public int checkIfParkLargeCar(Car car1) {
+        int index=LargeCarParkingIndex();
+        if (index==-1) return 0;
+        parkingList.get(index).add(car1);
+        return  index+1;
+    }
+    private int LargeCarParkingIndex() {
+        int index=-1;
+        int size=Integer.MAX_VALUE;
+        for(int i=0;i<maxcapacity;i++){
+            int lotcurrsize= parkingList.get(i).size();
+            if(lotcurrsize<lotCapacity){
+                if(lotcurrsize<size){
+                     size=lotcurrsize;
+                     index=i;
+                }
+            }
+        }
+        return  index;
+    }
 }
