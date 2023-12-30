@@ -32,8 +32,19 @@ class ParkingLotTest {
     //UC4
     @Test
     void givenAirportSecurity_CarsNumberlefttoFullParkingLot_returnInteger(){
-        AirportSecurity airportSecurity= new AirportSecurity();
-        Assertions.assertEquals(10,airportSecurity.carsReqforParkingLotFull());
+        ParkingLot parkingLot= new ParkingLot();
+        int val= parkingLot.carsReqForFullCapacity();
+        Assertions.assertFalse(AirportSecurity.carsReqforParkingLotFull(val));
+        parkingLot.checkIfPark(new Car("car"));
+        int val2=parkingLot.carsReqForFullCapacity();
+        Assertions.assertFalse(AirportSecurity.carsReqforParkingLotFull(val2));
+        parkingLot.checkIfPark(new Car("car"));
+         int val3=parkingLot.carsReqForFullCapacity();
+         Assertions.assertFalse(AirportSecurity.carsReqforParkingLotFull(val3));
+         parkingLot.checkIfPark(new Car("car2"));
+         int val4= parkingLot.carsReqForFullCapacity();
+         Assertions.assertTrue(AirportSecurity.carsReqforParkingLotFull(val4));
+
     }
 
 
