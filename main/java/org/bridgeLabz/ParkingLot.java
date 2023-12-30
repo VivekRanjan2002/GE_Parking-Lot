@@ -102,4 +102,17 @@ public class ParkingLot {
         }
         return null;
     }
+    //check if park handicapped driver's car
+    public int checkIfParkHandicap(Car car1) {
+        int index=handicappedParkingIndex();
+        if(index==-1) return 0;
+        parkingList.get(index).add(car1);
+        return index+1;
+    }
+    private int handicappedParkingIndex(){
+        for(int i=0;i<maxcapacity;i++){
+            if(parkingList.get(i).size()<lotCapacity) return i;
+        }
+        return -1;
+    }
 }
