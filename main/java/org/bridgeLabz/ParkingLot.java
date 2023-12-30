@@ -82,4 +82,15 @@ public class ParkingLot {
         }
         return 0;
     }
+    // return arrival time of parked car and null if not parked
+    public LocalDateTime retrieveArrivalTime(String name) {
+        if(parkingList.contains(name)){
+            for(Car car: departTimeList){
+                if(car.getName().equals(name)) return car.getArrivalTime();
+            }
+        }
+        return null;
+    }
+
+
 }
