@@ -21,6 +21,12 @@ class ParkingLotTest {
         parkingLot.checkIfPark(car1);
         Assertions.assertTrue(parkingLot.checkIfUnpark(car1));
     }
+    //UC3
+    @Test
+    void givenParkingLot_CarsNumberLefttoattainFullCapacity_return_Integer(){
+        ParkingLot parkingLot= new ParkingLot();
+        Assertions.assertEquals(10,parkingLot.carsReqForFullCapacity());
+    }
 
 
 }
