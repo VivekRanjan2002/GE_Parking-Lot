@@ -49,12 +49,13 @@ class ParkingLotTest {
          Assertions.assertTrue(AirportSecurity.carsReqforParkingLotFull(val4));
     }
     //UC5
+    @Test
     void givenParkingLot_checkWhenParkingLotwillhaveSpace_returnLocalDateTime(){
         ParkingLot parkingLot= new ParkingLot();
         parkingLot.checkIfPark(new Car("car1", LocalDateTime.of(2023,Month.DECEMBER,29,8,0),LocalDateTime.of(2023, Month.DECEMBER,29,12,30)));
-        Assertions.assertEquals(LocalDateTime.now(),parkingLot.CheckWhenLothaveSpace());
+        Assertions.assertEquals(null,parkingLot.CheckWhenLothaveSpace());
+        Car car2=new Car("car2", LocalDateTime.of(2023,Month.DECEMBER,29,8,0),LocalDateTime.of(2023, Month.DECEMBER,29,11,30));
+        parkingLot.checkIfPark(car2);
+        Assertions.assertEquals(car2.getDepartTime(),parkingLot.CheckWhenLothaveSpace());
     }
-
-
-
 }
