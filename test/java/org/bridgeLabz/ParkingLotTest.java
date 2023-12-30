@@ -2,11 +2,14 @@ package org.bridgeLabz;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.time.LocalDateTime;
+import java.time.Month;
+
 class ParkingLotTest {
     //UC1
     @Test
     void givenCar_addToParkingLot_returnBoolean(){
-        Car car= new Car("car1");
+        Car car= new Car("car1", LocalDateTime.of(2023,Month.DECEMBER,29,8,0),LocalDateTime.of(2023, Month.DECEMBER,29,12,30));
         ParkingLot parkingLot= new ParkingLot();
         Assertions.assertTrue(parkingLot.checkIfPark(car));
         Assertions.assertEquals(1,parkingLot.getcurrCapacity());
@@ -15,8 +18,8 @@ class ParkingLotTest {
     @Test
     void givenCar_removeToParkingLot_return_Boolean(){
         ParkingLot parkingLot= new ParkingLot();
-        Car car1= new Car("car1");
-        Car car2 = new Car("car2");
+        Car car1= new Car("car1", LocalDateTime.of(2023,Month.DECEMBER,29,8,0),LocalDateTime.of(2023, Month.DECEMBER,29,12,30));
+        Car car2 = new Car("car2", LocalDateTime.of(2023,Month.DECEMBER,30,8,0),LocalDateTime.of(2023, Month.DECEMBER,29,12,30));
         Assertions.assertFalse(parkingLot.checkIfUnpark(car2));
         parkingLot.checkIfPark(car1);
         Assertions.assertTrue(parkingLot.checkIfUnpark(car1));
@@ -25,9 +28,9 @@ class ParkingLotTest {
     @Test
     void givenParkingLot_CarsNumberLefttoattainFullCapacity_return_Integer(){
         ParkingLot parkingLot= new ParkingLot();
-        Assertions.assertEquals(10,parkingLot.carsReqForFullCapacity());
-        parkingLot.checkIfPark(new Car("Car1"));
-        Assertions.assertEquals(9,parkingLot.carsReqForFullCapacity());
+        Assertions.assertEquals(2,parkingLot.carsReqForFullCapacity());
+        parkingLot.checkIfPark(new Car("car1", LocalDateTime.of(2023,Month.DECEMBER,29,8,0),LocalDateTime.of(2023, Month.DECEMBER,29,12,30)));
+        Assertions.assertEquals(1,parkingLot.carsReqForFullCapacity());
     }
     //UC4
     @Test
@@ -35,17 +38,23 @@ class ParkingLotTest {
         ParkingLot parkingLot= new ParkingLot();
         int val= parkingLot.carsReqForFullCapacity();
         Assertions.assertFalse(AirportSecurity.carsReqforParkingLotFull(val));
-        parkingLot.checkIfPark(new Car("car"));
+        parkingLot.checkIfPark(new Car("car1", LocalDateTime.of(2023,Month.DECEMBER,29,8,0),LocalDateTime.of(2023, Month.DECEMBER,29,12,30)));
         int val2=parkingLot.carsReqForFullCapacity();
         Assertions.assertFalse(AirportSecurity.carsReqforParkingLotFull(val2));
-        parkingLot.checkIfPark(new Car("car"));
-         int val3=parkingLot.carsReqForFullCapacity();
-         Assertions.assertFalse(AirportSecurity.carsReqforParkingLotFull(val3));
-         parkingLot.checkIfPark(new Car("car2"));
-         int val4= parkingLot.carsReqForFullCapacity();
+        parkingLot.checkIfPark(new Car("car2", LocalDateTime.of(2023,Month.DECEMBER,29,9,0),LocalDateTime.of(2023, Month.DECEMBER,29,13,30)));
+        int val3=parkingLot.carsReqForFullCapacity();
+         Assertions.assertTrue(AirportSecurity.carsReqforParkingLotFull(val3));
+        parkingLot.checkIfPark(new Car("car1", LocalDateTime.of(2023,Month.DECEMBER,29,11,0),LocalDateTime.of(2023, Month.DECEMBER,29,14,30)));
+        int val4= parkingLot.carsReqForFullCapacity();
          Assertions.assertTrue(AirportSecurity.carsReqforParkingLotFull(val4));
-
     }
+    //UC5
+    void givenParkingLot_checkWhenParkingLotwillhaveSpace_returnLocalDateTime(){
+        ParkingLot parkingLot= new ParkingLot();
+        parkingLot.checkIfPark(new Car("car1", LocalDateTime.of(2023,Month.DECEMBER,29,8,0),LocalDateTime.of(2023, Month.DECEMBER,29,12,30)));
+        Assertions.assertEquals(LocalDateTime.now(),parkingLot.CheckWhenLothaveSpace());
+    }
+
 
 
 }
