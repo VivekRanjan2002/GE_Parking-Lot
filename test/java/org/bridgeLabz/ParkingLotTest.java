@@ -12,13 +12,14 @@ class ParkingLotTest {
         Assertions.assertEquals(1,parkingLot.getcurrCapacity());
     }
     //UC2
+    @Test
     void givenCar_removeToParkingLot_return_Boolean(){
         ParkingLot parkingLot= new ParkingLot();
         Car car1= new Car("car1");
         Car car2 = new Car("car2");
         Assertions.assertFalse(parkingLot.checkIfUnpark(car2));
         parkingLot.checkIfPark(car1);
-        Assertions.assertTrue(parkingLot.checkIfUnPark(car1));
+        Assertions.assertTrue(parkingLot.checkIfUnpark(car1));
     }
 
 
