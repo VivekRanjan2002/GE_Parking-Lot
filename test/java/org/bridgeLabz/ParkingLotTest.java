@@ -88,5 +88,13 @@ class ParkingLotTest {
         ParkingLot parkingLot= new ParkingLot();
         Car car1=new Car("car1", LocalDateTime.of(2023,Month.DECEMBER,29,8,0),LocalDateTime.of(2023, Month.DECEMBER,29,11,30));
         Assertions.assertTrue(parkingLot.checkIfPark(car1));
+        Car car2=new Car("car2", LocalDateTime.of(2023,Month.DECEMBER,29,8,0),LocalDateTime.of(2023, Month.DECEMBER,29,11,30));
+        Assertions.assertTrue(parkingLot.checkIfPark(car2));
+        Car car3=new Car("car3", LocalDateTime.of(2023,Month.DECEMBER,29,8,0),LocalDateTime.of(2023, Month.DECEMBER,29,11,30));
+        Assertions.assertTrue(parkingLot.checkIfPark(car3));
+        Car car4=new Car("car4", LocalDateTime.of(2023,Month.DECEMBER,29,8,0),LocalDateTime.of(2023, Month.DECEMBER,29,11,30));
+        Assertions.assertTrue(parkingLot.checkIfPark(car4));
+        Car car5=new Car("car5", LocalDateTime.of(2023,Month.DECEMBER,29,8,0),LocalDateTime.of(2023, Month.DECEMBER,29,11,30));
+        Assertions.assertFalse(parkingLot.checkIfPark(car5));
     }
 }

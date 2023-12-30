@@ -6,42 +6,61 @@ import java.util.Set;
 import java.util.TreeSet;
 
 public class ParkingLot {
-    private int maxcapacity=2;
-    private ArrayList<String> parkingList=new ArrayList<>();
-    private Set<Car> departTimeList= new TreeSet<>(new Car.DepartTime());
+    private  final int maxcapacity=2;
+    private final int lotCapacity=2;
+    private ArrayList<ArrayList<Car>> parkingList;
+    private Set<Car> departTimeList;
     private int currCapacity=0;
     public ParkingLot(){
+        departTimeList=new TreeSet<>(new Car.DepartTime());
+        parkingList= new ArrayList<>(maxcapacity);
+        for(int i=0;i<maxcapacity;i++){
+            parkingList.add(new ArrayList<Car>());
+        }
     };
     public int getcurrCapacity() {
         return currCapacity;
     }
-    // check if car can be parked or not by flipping coin
+    // check if car can be parked
     public boolean checkIfPark(Car car) {
-        if(currCapacity<maxcapacity && !parkingList.contains(car.getName())) {
-            currCapacity++;
-            parkingList.add(car.getName());
-            departTimeList.add(car);
-            return true;
+        int index=evenParkingIndexFinder();
+        if(index==-1) return false;
+        parkingList.get(index).add(car);
+        return true;
+    }
+    //calculate index where to be parked in evenly distributed manner
+    private int evenParkingIndexFinder(){
+        int index=-1;
+        int size=Integer.MAX_VALUE;
+        for(int i=0;i<maxcapacity;i++){
+            int lotcurrSize=parkingList.get(i).size();
+            if(lotcurrSize<lotCapacity){
+                size=Math.min(size,lotcurrSize);
+                index=i;
+            }
         }
-        return false;
+        return  index;
     }
     // remove car from parkinglot if it is parked
     public boolean checkIfUnpark(Car car) {
-        if(parkingList.size() >0 && parkingList.contains(car.getName())){
-            parkingList.remove(car.getName());
-            for(Car parkedcar: departTimeList){
-                if(car.getName().equals(parkedcar.getName())){
-                    departTimeList.remove(parkedcar);
-                    break;
-                }
-            }
-            return true;
-        }
-        return false;
+       for(int i=0;i<maxcapacity;i++){
+           for(Car parkedcar: parkingList.get(i)){
+               if(parkedcar.getName().equals(car.getName())){
+                   parkingList.get(i).remove(parkedcar);
+                   return true;
+               }
+           }
+       }
+       return false;
     }
     // no. of additional car required to full the parkinglot
     public  int carsReqForFullCapacity() {
-        int val= Math.max(0,maxcapacity-currCapacity);
+        int val=0;
+        for(int i=0;i<maxcapacity;i++) {
+            for (Car car : parkingList.get(i)) {
+                val += Math.max(0, lotCapacity-parkingList.get(i).size());
+            }
+        }
         System.out.println(val+ " more cars req to full the ParkingLot..");
         return val;
     }
@@ -60,37 +79,27 @@ public class ParkingLot {
     }
     // return the parking lot number where car is parked if not then 0
     public int whereToPark(Car car1) {
-        boolean canbeParked= checkIfPark(car1);
-        canbeParked|=parkingList.contains(car1.getName());
-        if(canbeParked){
-            int pos=0;
-            for(String car: parkingList){
-                pos++;
-                if(car1.getName().equals(car)) {
-                    return pos;
-                }
-            }
-        }
-        return 0;
+        checkIfPark(car1);
+        return retrieveParkingLotNo(car1.getName());
     }
     // return parkinglot number where car is parked
     public int retrieveParkingLotNo(String name) {
-        int lotno=0;
-        for(String car: parkingList){
-            lotno++;
-            if(car.equals(name)) return lotno;
+        for(int i=0;i<maxcapacity;i++){
+            for(Car car:parkingList.get(i)){
+                if(car.getName().equals(name)) return i+1;
+            }
         }
         return 0;
     }
     // return arrival time of parked car and null if not parked
     public LocalDateTime retrieveArrivalTime(String name) {
-        if(parkingList.contains(name)){
-            for(Car car: departTimeList){
-                if(car.getName().equals(name)) return car.getArrivalTime();
+        for(int i=0;i<maxcapacity;i++){
+            for(Car car:parkingList.get(i)){
+                if(car.getName().equals(name)){
+                    return car.getArrivalTime();
+                }
             }
         }
         return null;
     }
-
-
 }
