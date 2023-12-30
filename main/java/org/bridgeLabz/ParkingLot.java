@@ -3,6 +3,7 @@ package org.bridgeLabz;
 import java.util.ArrayList;
 
 public class ParkingLot {
+    private int maxcapacity=10;
     private ArrayList<Car> parkingList;
     private int currCapacity;
     public ParkingLot(){
@@ -25,5 +26,11 @@ public class ParkingLot {
             return true;
         }
         return false;
+    }
+
+    public int carsReqForFullCapacity() {
+        int val= Math.max(0,maxcapacity-currCapacity);
+        System.out.println(val+ " more cars req to full the ParkingLot..");
+        return val;
     }
 }
