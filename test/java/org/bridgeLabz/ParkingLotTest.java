@@ -79,6 +79,6 @@ class ParkingLotTest {
         ParkingLot parkingLot= new ParkingLot();
         Car car1=new Car("car1", LocalDateTime.of(2023,Month.DECEMBER,29,8,0),LocalDateTime.of(2023, Month.DECEMBER,29,11,30));
         parkingLot.checkIfPark(car1);
-        Assertions.assertEquals(car1.getArrivalTime(),parkingLot.retrieveArrivalTime(car1));
+        Assertions.assertEquals(car1.getArrivalTime(),parkingLot.retrieveArrivalTime(car1.getName()));
     }
 }
