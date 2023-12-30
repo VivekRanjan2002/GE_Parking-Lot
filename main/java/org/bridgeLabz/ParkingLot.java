@@ -58,4 +58,19 @@ public class ParkingLot {
         System.out.println("ParkingLot will have space at " + dTime);
         return dTime;
     }
+    // return the parking lot number where car is parked if not then 0
+    public int whereToPark(Car car1) {
+        boolean canbeParked= checkIfPark(car1);
+        canbeParked|=parkingList.contains(car1.getName());
+        if(canbeParked){
+            int pos=0;
+            for(String car: parkingList){
+                pos++;
+                if(car1.getName().equals(car)) {
+                    return pos;
+                }
+            }
+        }
+        return 0;
+    }
 }
