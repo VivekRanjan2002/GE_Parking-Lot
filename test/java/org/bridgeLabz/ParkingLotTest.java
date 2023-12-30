@@ -58,4 +58,11 @@ class ParkingLotTest {
         parkingLot.checkIfPark(car2);
         Assertions.assertEquals(car2.getDepartTime(),parkingLot.CheckWhenLothaveSpace());
     }
+    //UC6
+    @Test
+    void givenCar_checkWhereToPark_returnInteger(){
+        ParkingLot parkingLot = new ParkingLot();
+        Car car1=new Car("car1", LocalDateTime.of(2023,Month.DECEMBER,29,8,0),LocalDateTime.of(2023, Month.DECEMBER,29,11,30));
+        Assertions.assertEquals(1,parkingLot.whereToPark(car1));
+    }
 }
