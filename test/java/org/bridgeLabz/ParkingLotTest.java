@@ -65,4 +65,12 @@ class ParkingLotTest {
         Car car1=new Car("car1", LocalDateTime.of(2023,Month.DECEMBER,29,8,0),LocalDateTime.of(2023, Month.DECEMBER,29,11,30));
         Assertions.assertEquals(1,parkingLot.whereToPark(car1));
     }
+    //UC7
+    @Test
+    void givencar_parkingLotNumberwhereitisParked_returnInteger(){
+        ParkingLot parkingLot= new ParkingLot();
+        Car car1=new Car("car1", LocalDateTime.of(2023,Month.DECEMBER,29,8,0),LocalDateTime.of(2023, Month.DECEMBER,29,11,30));
+        parkingLot.checkIfPark(car1);
+        Assertions.assertEquals(1,parkingLot.retrieveParkingLotNo(car1.getName()));
+    }
 }
