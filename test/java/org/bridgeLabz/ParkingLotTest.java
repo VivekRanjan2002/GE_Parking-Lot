@@ -26,6 +26,8 @@ class ParkingLotTest {
     void givenParkingLot_CarsNumberLefttoattainFullCapacity_return_Integer(){
         ParkingLot parkingLot= new ParkingLot();
         Assertions.assertEquals(10,parkingLot.carsReqForFullCapacity());
+        parkingLot.checkIfPark(new Car("Car1"));
+        Assertions.assertEquals(9,parkingLot.carsReqForFullCapacity());
     }
 
 
