@@ -82,4 +82,11 @@ class ParkingLotTest {
         Assertions.assertEquals(car1.getArrivalTime(),parkingLot.retrieveArrivalTime(car1.getName()));
         Assertions.assertEquals(null,parkingLot.retrieveArrivalTime("car5"));
     }
+    //UC9
+    @Test
+    void givenParkingLot_ParkCarEvenlyDistribution_returnBoolean(){
+        ParkingLot parkingLot= new ParkingLot();
+        Car car1=new Car("car1", LocalDateTime.of(2023,Month.DECEMBER,29,8,0),LocalDateTime.of(2023, Month.DECEMBER,29,11,30));
+        Assertions.assertTrue(parkingLot.checkIfPark(car1));
+    }
 }
