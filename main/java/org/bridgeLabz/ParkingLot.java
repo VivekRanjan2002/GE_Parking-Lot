@@ -1,15 +1,16 @@
 package org.bridgeLabz;
-
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.*;
+
+import static org.bridgeLabz.PoliceDepartment.BlueToyotaCarList;
 import static org.bridgeLabz.PoliceDepartment.ParkedWhiteCarLocationList;
 public class ParkingLot {
     private  final int maxcapacity=2;
     private final int lotCapacity=2;
     private ArrayList<ArrayList<Car>> parkingList;
     private Set<Car> departTimeList;
+    // map of parkinglotnumber with corresponding parkingAttendant
+    private Map<Integer,String> parkingAttendantMap;
     private int currCapacity=0;
     public ParkingLot(){
         departTimeList=new TreeSet<>(new Car.DepartTime());
@@ -17,6 +18,7 @@ public class ParkingLot {
         for(int i=0;i<maxcapacity;i++){
             parkingList.add(new ArrayList<Car>());
         }
+        setParkingAttendantMap();
     };
     public int getcurrCapacity() {
         return currCapacity;
@@ -26,11 +28,8 @@ public class ParkingLot {
         int index=evenParkingIndexFinder();
         if(index==-1) return false;
         parkingList.get(index).add(car);
-        if(car.getColor()=="White") {
-            String ParkingLotNumber= String.valueOf(index+1);
-            String rowInsideLot= String.valueOf(parkingList.get(index).size());
-            ParkedWhiteCarLocationList.add(ParkingLotNumber+rowInsideLot);
-        }
+        populateBlueToyotaCarListIfPossible(car,index);
+        populateWhiteCarListIfPossible(car,index);
         return true;
     }
     //calculate index where to be parked in evenly distributed manner
@@ -142,5 +141,32 @@ public class ParkingLot {
             }
         }
         return  index;
+    }
+    private void populateWhiteCarListIfPossible(Car car,int index){
+        if(car.getColor()=="White") {
+            String ParkingLotNumber= String.valueOf(index+1);
+            String rowInsideLot= String.valueOf(parkingList.get(index).size());
+            ParkedWhiteCarLocationList.add(ParkingLotNumber+rowInsideLot);
+        }
+    }
+    private void populateBlueToyotaCarListIfPossible(Car car,int index){
+        if(car.getColor()=="Blue" && car.getType()=="Toyota") {
+            String ParkingLotNumber= String.valueOf(index+1);
+            String rowInsideLot= String.valueOf(parkingList.get(index).size());
+            String parkedLocation=ParkingLotNumber+rowInsideLot;
+            String plateNumber= car.getPlateNo();
+            String parkingAttendantName= parkingAttendantMap.get(Integer.parseInt(ParkingLotNumber));
+            ArrayList<String> currcarList=new ArrayList<>();
+            currcarList.add(parkedLocation);
+            currcarList.add(plateNumber);
+            currcarList.add(parkingAttendantName);
+            BlueToyotaCarList.add(currcarList);
+        }
+    }
+    // populate parkingattendant map
+    private void setParkingAttendantMap(){
+        parkingAttendantMap=new HashMap<>();
+        parkingAttendantMap.put(1,"ABC");
+        parkingAttendantMap.put(2,"DEF");
     }
 }

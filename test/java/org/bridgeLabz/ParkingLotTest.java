@@ -165,5 +165,10 @@ class ParkingLotTest {
         parkingLot.checkIfPark(car4);
         ArrayList<ArrayList<String>> blueToyotaList= PoliceDepartment.retrieveBlueToyotaList();
         Assertions.assertEquals(2,blueToyotaList.size());
+       Assertions.assertEquals("11",blueToyotaList.get(0).get(0));
+        Assertions.assertEquals("DL01AB1234",blueToyotaList.get(0).get(1));
+        Assertions.assertEquals("ABC",blueToyotaList.get(0).get(2));
+        Assertions.assertEquals("21",blueToyotaList.get(1).get(0));
     }
+    
 }

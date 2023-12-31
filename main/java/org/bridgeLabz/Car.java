@@ -4,6 +4,8 @@ import java.util.Comparator;
 public class Car {
     private String name;
     private String color;
+    private String type;
+    private String plateNo;
     private LocalDateTime arrivalTime;
     private LocalDateTime departTime;
     public Car(String name,LocalDateTime arrivalTime,LocalDateTime departTime){
@@ -14,6 +16,11 @@ public class Car {
     public Car(String name,String color,LocalDateTime arrivalTime,LocalDateTime departTime){
         this(name,arrivalTime,departTime);
         this.color=color;
+    }
+    public Car(String name,String color,String type,String plateNo,LocalDateTime arrivalTime,LocalDateTime departTime){
+        this(name,color,arrivalTime,departTime);
+        this.type=type;
+        this.plateNo=plateNo;
     }
     public String getName() {
         return name;
@@ -27,6 +34,12 @@ public class Car {
 
     public String getColor() {
         return color;
+    }
+    public String getType() {
+        return type;
+    }
+    public String getPlateNo() {
+        return plateNo;
     }
 
     //comparator to sort the car object with departTime
