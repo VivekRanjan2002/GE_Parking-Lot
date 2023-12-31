@@ -151,4 +151,19 @@ class ParkingLotTest {
         Assertions.assertEquals("11",whiteCarParkingLocationList.get(0));
         Assertions.assertEquals("12",whiteCarParkingLocationList.get(1));
     }
+    //UC13
+    @Test
+    void givenPoliceDepartment_retrieveBlueToyotaList_returnList(){
+        ParkingLot parkingLot= new ParkingLot();
+        Car car1=new Car("car1","Blue","Toyota","DL01AB1234", LocalDateTime.of(2023,Month.DECEMBER,29,8,0),LocalDateTime.of(2023, Month.DECEMBER,29,11,30));
+        Car car2=new Car("car2", "Blue","Toyota","DL01CD1234",LocalDateTime.of(2023,Month.DECEMBER,29,8,0),LocalDateTime.of(2023, Month.DECEMBER,29,11,30));
+        Car car3=new Car("car3", "White","BMW","MN01AB1234",LocalDateTime.of(2023,Month.DECEMBER,29,8,0),LocalDateTime.of(2023, Month.DECEMBER,29,11,30));
+        Car car4=new Car("car4", "White","BMW","RP01AB1234",LocalDateTime.of(2023,Month.DECEMBER,29,8,0),LocalDateTime.of(2023, Month.DECEMBER,29,11,30));
+        parkingLot.checkIfPark(car1);
+        parkingLot.checkIfPark(car2);
+        parkingLot.checkIfPark(car3);
+        parkingLot.checkIfPark(car4);
+        ArrayList<ArrayList<String>> blueToyotaList= PoliceDepartment.retrieveBlueToyotaList();
+        Assertions.assertEquals(2,blueToyotaList.size());
+    }
 }
