@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
 import java.time.Month;
+import java.util.ArrayList;
 
 class ParkingLotTest {
     //UC1
@@ -119,13 +120,27 @@ class ParkingLotTest {
         ParkingLot parkingLot= new ParkingLot();
         Car car1=new Car("car1", LocalDateTime.of(2023,Month.DECEMBER,29,8,0),LocalDateTime.of(2023, Month.DECEMBER,29,11,30));
         Assertions.assertEquals(1,parkingLot.checkIfParkLargeCar(car1));
-//        Car car2=new Car("car2", LocalDateTime.of(2023,Month.DECEMBER,29,8,0),LocalDateTime.of(2023, Month.DECEMBER,29,11,30));
-//        Assertions.assertEquals(2,parkingLot.checkIfParkLargeCar(car2));
-//        Car car3=new Car("car3", LocalDateTime.of(2023,Month.DECEMBER,29,8,0),LocalDateTime.of(2023, Month.DECEMBER,29,11,30));
-//        Assertions.assertEquals(2,parkingLot.checkIfParkLargeCar(car3));
-//        Car car4=new Car("car4", LocalDateTime.of(2023,Month.DECEMBER,29,8,0),LocalDateTime.of(2023, Month.DECEMBER,29,11,30));
-//        Assertions.assertEquals(1,parkingLot.checkIfParkLargeCar(car4));
-//        Car car5=new Car("car5", LocalDateTime.of(2023,Month.DECEMBER,29,8,0),LocalDateTime.of(2023, Month.DECEMBER,29,11,30));
-//        Assertions.assertEquals(0,parkingLot.checkIfParkLargeCar(car5));
+        Car car2=new Car("car2", LocalDateTime.of(2023,Month.DECEMBER,29,8,0),LocalDateTime.of(2023, Month.DECEMBER,29,11,30));
+        Assertions.assertEquals(2,parkingLot.checkIfParkLargeCar(car2));
+        Car car3=new Car("car3", LocalDateTime.of(2023,Month.DECEMBER,29,8,0),LocalDateTime.of(2023, Month.DECEMBER,29,11,30));
+        Assertions.assertEquals(1,parkingLot.checkIfParkLargeCar(car3));
+        Car car4=new Car("car4", LocalDateTime.of(2023,Month.DECEMBER,29,8,0),LocalDateTime.of(2023, Month.DECEMBER,29,11,30));
+        Assertions.assertEquals(2,parkingLot.checkIfParkLargeCar(car4));
+        Car car5=new Car("car5", LocalDateTime.of(2023,Month.DECEMBER,29,8,0),LocalDateTime.of(2023, Month.DECEMBER,29,11,30));
+        Assertions.assertEquals(0,parkingLot.checkIfParkLargeCar(car5));
+    }
+    //UC12
+    @Test
+    void givenPoliceDepartment_retrieveParkingLocationofAllWhiteCars_returnList(){
+        PoliceDepartment policeDepartment= new PoliceDepartment();
+        ParkingLot parkingLot= new ParkingLot();
+        Car car1=new Car("car1","White", LocalDateTime.of(2023,Month.DECEMBER,29,8,0),LocalDateTime.of(2023, Month.DECEMBER,29,11,30));
+        Car car2=new Car("car2", "Blue",LocalDateTime.of(2023,Month.DECEMBER,29,8,0),LocalDateTime.of(2023, Month.DECEMBER,29,11,30));
+        Car car3=new Car("car3", "White",LocalDateTime.of(2023,Month.DECEMBER,29,8,0),LocalDateTime.of(2023, Month.DECEMBER,29,11,30));
+        parkingLot.checkIfPark(car1);
+        parkingLot.checkIfPark(car2);
+        parkingLot.checkIfPark(car3);
+        ArrayList<String> whiteCarParkingLocationList= policeDepartment.retrieveWhiteCarLocation();
+        Assertions.assertEquals(2,whiteCarParkingLocationList.size());
     }
 }
