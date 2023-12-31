@@ -2,8 +2,8 @@ package org.bridgeLabz;
 import java.time.LocalDateTime;
 import java.util.*;
 
-import static org.bridgeLabz.PoliceDepartment.BlueToyotaCarList;
-import static org.bridgeLabz.PoliceDepartment.ParkedWhiteCarLocationList;
+import static org.bridgeLabz.PoliceDepartment.*;
+
 public class ParkingLot {
     private  final int maxcapacity=2;
     private final int lotCapacity=2;
@@ -30,6 +30,7 @@ public class ParkingLot {
         parkingList.get(index).add(car);
         populateBlueToyotaCarListIfPossible(car,index);
         populateWhiteCarListIfPossible(car,index);
+        populateBMWCarListIfPossible(car,index);
         return true;
     }
     //calculate index where to be parked in evenly distributed manner
@@ -161,6 +162,13 @@ public class ParkingLot {
             currcarList.add(plateNumber);
             currcarList.add(parkingAttendantName);
             BlueToyotaCarList.add(currcarList);
+        }
+    }
+    private void populateBMWCarListIfPossible(Car car, int index) {
+        if(car.getType()=="BMW") {
+            String ParkingLotNumber= String.valueOf(index+1);
+            String rowInsideLot= String.valueOf(parkingList.get(index).size());
+            ParkedBMWCarLocationList.add(ParkingLotNumber+rowInsideLot);
         }
     }
     // populate parkingattendant map

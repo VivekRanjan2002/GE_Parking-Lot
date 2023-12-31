@@ -181,14 +181,14 @@ class ParkingLotTest {
         parkingLot.checkIfPark(car1);
         ArrayList<String> BMWParkingLocationList=PoliceDepartment.retrieveBMWCarLocation();
         Assertions.assertEquals(1,BMWParkingLocationList.size());
-        Assertions.assertEquals("11",whiteCarParkingLocationList.get(0));
+        Assertions.assertEquals("11",BMWParkingLocationList.get(0));
         parkingLot.checkIfPark(car2);
         BMWParkingLocationList=PoliceDepartment.retrieveBMWCarLocation();
         Assertions.assertEquals(1,BMWParkingLocationList.size());
         parkingLot.checkIfPark(car3);
         BMWParkingLocationList=PoliceDepartment.retrieveBMWCarLocation();
         Assertions.assertEquals(2,BMWParkingLocationList.size());
-        Assertions.assertEquals("12",whiteCarParkingLocationList.get(0));
+        Assertions.assertEquals("12",BMWParkingLocationList.get(1));
         parkingLot.checkIfPark(car4);
         BMWParkingLocationList=PoliceDepartment.retrieveBMWCarLocation();
         Assertions.assertEquals(2,BMWParkingLocationList.size());
