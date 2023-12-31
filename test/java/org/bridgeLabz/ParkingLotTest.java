@@ -132,15 +132,23 @@ class ParkingLotTest {
     //UC12
     @Test
     void givenPoliceDepartment_retrieveParkingLocationofAllWhiteCars_returnList(){
-        PoliceDepartment policeDepartment= new PoliceDepartment();
         ParkingLot parkingLot= new ParkingLot();
         Car car1=new Car("car1","White", LocalDateTime.of(2023,Month.DECEMBER,29,8,0),LocalDateTime.of(2023, Month.DECEMBER,29,11,30));
         Car car2=new Car("car2", "Blue",LocalDateTime.of(2023,Month.DECEMBER,29,8,0),LocalDateTime.of(2023, Month.DECEMBER,29,11,30));
         Car car3=new Car("car3", "White",LocalDateTime.of(2023,Month.DECEMBER,29,8,0),LocalDateTime.of(2023, Month.DECEMBER,29,11,30));
+        ArrayList<String> whiteCarParkingLocationList=PoliceDepartment.retrieveWhiteCarLocation();
+        Assertions.assertEquals(0,whiteCarParkingLocationList.size());
         parkingLot.checkIfPark(car1);
+        whiteCarParkingLocationList=PoliceDepartment.retrieveWhiteCarLocation();
+        Assertions.assertEquals(1,whiteCarParkingLocationList.size());
+        Assertions.assertEquals("11",whiteCarParkingLocationList.get(0));
         parkingLot.checkIfPark(car2);
+        whiteCarParkingLocationList=PoliceDepartment.retrieveWhiteCarLocation();
+        Assertions.assertEquals(1,whiteCarParkingLocationList.size());
         parkingLot.checkIfPark(car3);
-        ArrayList<String> whiteCarParkingLocationList= policeDepartment.retrieveWhiteCarLocation();
+        whiteCarParkingLocationList=PoliceDepartment.retrieveWhiteCarLocation();
         Assertions.assertEquals(2,whiteCarParkingLocationList.size());
+        Assertions.assertEquals("11",whiteCarParkingLocationList.get(0));
+        Assertions.assertEquals("12",whiteCarParkingLocationList.get(1));
     }
 }
