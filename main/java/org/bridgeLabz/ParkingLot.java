@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Set;
 import java.util.TreeSet;
-
+import static org.bridgeLabz.PoliceDepartment.ParkedWhiteCarLocationList;
 public class ParkingLot {
     private  final int maxcapacity=2;
     private final int lotCapacity=2;
@@ -26,6 +26,11 @@ public class ParkingLot {
         int index=evenParkingIndexFinder();
         if(index==-1) return false;
         parkingList.get(index).add(car);
+        if(car.getColor()=="White") {
+            String ParkingLotNumber= String.valueOf(index+1);
+            String rowInsideLot= String.valueOf(parkingList.get(index).size());
+            ParkedWhiteCarLocationList.add(ParkingLotNumber+rowInsideLot);
+        }
         return true;
     }
     //calculate index where to be parked in evenly distributed manner
@@ -34,9 +39,11 @@ public class ParkingLot {
         int size=Integer.MAX_VALUE;
         for(int i=0;i<maxcapacity;i++){
             int lotcurrSize=parkingList.get(i).size();
-            if(lotcurrSize<lotCapacity){
-                size=Math.min(size,lotcurrSize);
-                index=i;
+            if(lotcurrSize<lotCapacity) {
+                if (lotcurrSize < size) {
+                    size = Math.min(size, lotcurrSize);
+                    index = i;
+                }
             }
         }
         return  index;

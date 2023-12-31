@@ -3,12 +3,17 @@ import java.time.LocalDateTime;
 import java.util.Comparator;
 public class Car {
     private String name;
+    private String color;
     private LocalDateTime arrivalTime;
     private LocalDateTime departTime;
     public Car(String name,LocalDateTime arrivalTime,LocalDateTime departTime){
         this.name=name;
         this.arrivalTime=arrivalTime;
         this.departTime=departTime;
+    }
+    public Car(String name,String color,LocalDateTime arrivalTime,LocalDateTime departTime){
+        this(name,arrivalTime,departTime);
+        this.color=color;
     }
     public String getName() {
         return name;
@@ -19,6 +24,11 @@ public class Car {
     public LocalDateTime getDepartTime() {
         return departTime;
     }
+
+    public String getColor() {
+        return color;
+    }
+
     //comparator to sort the car object with departTime
     static class DepartTime implements Comparator<Car> {
         @Override
