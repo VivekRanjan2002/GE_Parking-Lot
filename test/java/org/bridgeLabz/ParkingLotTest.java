@@ -207,6 +207,6 @@ class ParkingLotTest {
         parkingLot.checkIfPark(car2);
         parkingLot.checkIfPark(car3);
         parkingLot.checkIfPark(car4);
-        Assertions.assertEquals(2,policeDepartment.retrieveLastThirtyMinParkedCarList());
+        Assertions.assertEquals(2,policeDepartment.retrieveLastThirtyMinParkedCarList().size());
     }
 }
