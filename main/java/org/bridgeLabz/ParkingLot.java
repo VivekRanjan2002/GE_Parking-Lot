@@ -1,4 +1,5 @@
 package org.bridgeLabz;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -9,7 +10,8 @@ public class ParkingLot {
     private final int lotCapacity=2;
     private ArrayList<ArrayList<Car>> parkingList;
     private Set<Car> departTimeList;
-    // map of parkinglotnumber with corresponding parkingAttendant
+    // all parked list cars
+    public static ArrayList<Car> parkedCars;
     private Map<Integer,String> parkingAttendantMap;
     private int currCapacity=0;
     public ParkingLot(){
@@ -19,6 +21,7 @@ public class ParkingLot {
             parkingList.add(new ArrayList<Car>());
         }
         setParkingAttendantMap();
+        parkedCars= new ArrayList<>();
     };
     public int getcurrCapacity() {
         return currCapacity;
@@ -31,6 +34,7 @@ public class ParkingLot {
         populateBlueToyotaCarListIfPossible(car,index);
         populateWhiteCarListIfPossible(car,index);
         populateBMWCarListIfPossible(car,index);
+        parkedCars.add(car);
         return true;
     }
     //calculate index where to be parked in evenly distributed manner
