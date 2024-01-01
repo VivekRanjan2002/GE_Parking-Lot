@@ -2,6 +2,7 @@ package org.bridgeLabz;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import javax.sql.PooledConnection;
 import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.ArrayList;
@@ -192,5 +193,20 @@ class ParkingLotTest {
         parkingLot.checkIfPark(car4);
         BMWParkingLocationList=PoliceDepartment.retrieveBMWCarLocation();
         Assertions.assertEquals(2,BMWParkingLocationList.size());
+    }
+    //UC15
+    @Test
+    void givenPoliceDepartment_retrieveLast30minParkedCarList_returnList(){
+        PoliceDepartment policeDepartment= new PoliceDepartment();
+        ParkingLot parkingLot= new ParkingLot();
+        Car car1=new Car("car1","Blue","Toyota","DL01AB1234", LocalDateTime.now(),LocalDateTime.of(2023, Month.DECEMBER,29,11,30));
+        Car car2=new Car("car2", "Blue","Toyota","DL01CD1234",LocalDateTime.of(2023,Month.DECEMBER,29,8,0),LocalDateTime.of(2023, Month.DECEMBER,29,11,30));
+        Car car3=new Car("car3", "White","BMW","MN01AB1234",LocalDateTime.now(),LocalDateTime.of(2023, Month.DECEMBER,29,11,30));
+        Car car4=new Car("car4", "White","BMW","RP01AB1234",LocalDateTime.of(2023,Month.DECEMBER,29,8,0),LocalDateTime.of(2023, Month.DECEMBER,29,11,30));
+        parkingLot.checkIfPark(car1);
+        parkingLot.checkIfPark(car2);
+        parkingLot.checkIfPark(car3);
+        parkingLot.checkIfPark(car4);
+        Assertions.assertEquals(2,policeDepartment.retrieveLastThirtyMinParkedCarList());
     }
 }
