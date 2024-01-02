@@ -8,7 +8,7 @@ import static org.bridgeLabz.PoliceDepartment.*;
 public class ParkingLot {
     private  final int maxcapacity=2;
     private final int lotCapacity=2;
-    private ArrayList<ArrayList<Car>> parkingList;
+    public static ArrayList<ArrayList<Car>> parkingList;
     private Set<Car> departTimeList;
     // all parked list cars
     public static ArrayList<Car> parkedCars;
@@ -29,8 +29,12 @@ public class ParkingLot {
     // check if car can be parked
     public boolean checkIfPark(Car car) {
         int index=evenParkingIndexFinder();
+        if(car.getType()=="Handicap") index=checkIfParkHandicap(car);
+       else if(car.getSize()=="Large") index=checkIfParkLargeCar(car);
         if(index==-1) return false;
         parkingList.get(index).add(car);
+        currCapacity++;
+        departTimeList.add(car);
         populateBlueToyotaCarListIfPossible(car,index);
         populateWhiteCarListIfPossible(car,index);
         populateBMWCarListIfPossible(car,index);
@@ -68,9 +72,7 @@ public class ParkingLot {
     public  int carsReqForFullCapacity() {
         int val=0;
         for(int i=0;i<maxcapacity;i++) {
-            for (Car car : parkingList.get(i)) {
                 val += Math.max(0, lotCapacity-parkingList.get(i).size());
-            }
         }
         System.out.println(val+ " more cars req to full the ParkingLot..");
         return val;
@@ -80,7 +82,7 @@ public class ParkingLot {
     @return : if parkinglot have space then return null else the smallest departTime
      */
     public LocalDateTime CheckWhenLothaveSpace() {
-        if(departTimeList.size()<maxcapacity){
+        if(departTimeList.size()<maxcapacity*lotCapacity){
             System.out.println("ParkingLot have already space left now");
             return null;
         }
@@ -115,10 +117,11 @@ public class ParkingLot {
     }
     //check if park handicapped driver's car
     public int checkIfParkHandicap(Car car1) {
-        int index=handicappedParkingIndex();
-        if(index==-1) return 0;
-        parkingList.get(index).add(car1);
-        return index+1;
+        if(car1.getType()=="Handicap") {
+            int index = handicappedParkingIndex();
+            return index;
+        }
+        return -1;
     }
     private int handicappedParkingIndex(){
         for(int i=0;i<maxcapacity;i++){
@@ -128,10 +131,11 @@ public class ParkingLot {
     }
     // return the parkinglot number where large car is parked or  else 0
     public int checkIfParkLargeCar(Car car1) {
-        int index=LargeCarParkingIndex();
-        if (index==-1) return 0;
-        parkingList.get(index).add(car1);
-        return  index+1;
+        if(car1.getSize()=="Large") {
+            int index = LargeCarParkingIndex();
+            return index;
+        }
+        return -1;
     }
     private int LargeCarParkingIndex() {
         int index=-1;
@@ -139,7 +143,7 @@ public class ParkingLot {
         for(int i=0;i<maxcapacity;i++){
             int lotcurrsize= parkingList.get(i).size();
             if(lotcurrsize<lotCapacity){
-                if(lotcurrsize<size){
+                if(lotcurrsize<=size){
                      size=lotcurrsize;
                      index=i;
                 }
@@ -155,7 +159,7 @@ public class ParkingLot {
         }
     }
     private void populateBlueToyotaCarListIfPossible(Car car,int index){
-        if(car.getColor()=="Blue" && car.getType()=="Toyota") {
+        if(car.getColor()=="Blue" && car.getCompany()=="Toyota") {
             String ParkingLotNumber= String.valueOf(index+1);
             String rowInsideLot= String.valueOf(parkingList.get(index).size());
             String parkedLocation=ParkingLotNumber+rowInsideLot;
@@ -169,7 +173,7 @@ public class ParkingLot {
         }
     }
     private void populateBMWCarListIfPossible(Car car, int index) {
-        if(car.getType()=="BMW") {
+        if(car.getCompany()=="BMW") {
             String ParkingLotNumber= String.valueOf(index+1);
             String rowInsideLot= String.valueOf(parkingList.get(index).size());
             ParkedBMWCarLocationList.add(ParkingLotNumber+rowInsideLot);

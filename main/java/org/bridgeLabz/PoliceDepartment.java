@@ -2,7 +2,11 @@ package org.bridgeLabz;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Map;
+
 import static org.bridgeLabz.ParkingLot.parkedCars;
+import static org.bridgeLabz.ParkingLot.parkingList;
+
 public class PoliceDepartment {
     public static ArrayList<String> ParkedWhiteCarLocationList= new ArrayList<>();
     public static ArrayList<String> ParkedBMWCarLocationList= new ArrayList<>();
@@ -33,5 +37,14 @@ public class PoliceDepartment {
             if (seconds < 1800) lastThirtyMinParkedCar.add(v);
         }
     return lastThirtyMinParkedCar;
+    }
+
+    public ArrayList<Car> retrievesmallHandicapcarsecondLotList() {
+        ArrayList<Car> smallHandicapcarsonSecondRow= new ArrayList<>();
+            for (Car car : parkingList.get(1)) {
+                if (car.getType() == "Handicap" && car.getSize() == "small") smallHandicapcarsonSecondRow.add(car);
+            }
+
+        return smallHandicapcarsonSecondRow;
     }
 }
