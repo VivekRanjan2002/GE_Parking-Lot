@@ -260,12 +260,14 @@ class ParkingLotTest {
         Car car3=new Car("car3", "White","BMW","Handicap","small","MN01AB1234",LocalDateTime.now(),LocalDateTime.of(2023, Month.DECEMBER,29,11,30));
         Car car4=new Car("car4", "White","BMW","Normal","small","RP01AB1234",LocalDateTime.of(2023,Month.DECEMBER,29,8,0),LocalDateTime.of(2023, Month.DECEMBER,29,11,30));
         parkingLot.checkIfPark(car1);
-        Assertions.assertEquals(1,policeDepartment.retrieveParkedCarList());
+        Assertions.assertEquals(1,policeDepartment.retrieveParkedCarList().size());
         parkingLot.checkIfPark(car2);
-        Assertions.assertEquals(2,policeDepartment.retrieveParkedCarList());
+        Assertions.assertEquals(2,policeDepartment.retrieveParkedCarList().size());
         parkingLot.checkIfPark(car3);
-        Assertions.assertEquals(3,policeDepartment.retrieveParkedCarList());
+        Assertions.assertEquals(3,policeDepartment.retrieveParkedCarList().size());
         parkingLot.checkIfPark(car4);
-        Assertions.assertEquals(4,policeDepartment.retrieveParkedCarList());
+        Assertions.assertEquals(4,policeDepartment.retrieveParkedCarList().size());
+        parkingLot.checkIfPark(new Car("car5", "White","BMW","Normal","small","RP01AB1234",LocalDateTime.of(2023,Month.DECEMBER,29,8,0),LocalDateTime.of(2023, Month.DECEMBER,29,11,30)));
+        Assertions.assertEquals(4,policeDepartment.retrieveParkedCarList().size());
     }
 }
