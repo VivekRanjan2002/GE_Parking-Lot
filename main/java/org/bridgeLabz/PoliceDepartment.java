@@ -47,4 +47,8 @@ public class PoliceDepartment {
 
         return smallHandicapcarsonSecondRow;
     }
+     // retrieve all parked cars list
+    public ArrayList<Car> retrieveParkedCarList() {
+        return parkedCars;
+    }
 }
